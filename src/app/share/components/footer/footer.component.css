@@ -1,0 +1,11 @@
+.posicao {
+    position: fixed; 
+    bottom:0; 
+    width: 100%;
+    background-color: gray;
+    color: white;
+}
+
+footer {
+    height: 5vh;
+}
