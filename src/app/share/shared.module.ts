@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { RouterModule } from '@angular/router';
+import { LoginComponent } from '../core/pages/login/login.component';
 
 @NgModule({
   declarations: [
@@ -10,24 +12,12 @@ import { FooterComponent } from './components/footer/footer.component';
     FooterComponent
   ],
   imports: [
-    CommonModule
-    /*RouterModule.forChild([
+    CommonModule,
+    RouterModule.forChild([
       {
-          path: '', component: HomeComponent
-      },
-      {
-          path: 'home', component: HomeComponent
-      },
-      {
-          path: 'usuarios', component: PostagemComponent
-      },
-      {
-          path: 'cadastro', component: CadastroComponent
-      },
-      {
-          path: 'contato', component: ContatoComponent
+          path: '', component: LoginComponent
       }
-    ])*/
+    ])
   ],
   exports: [
     NavbarComponent,
