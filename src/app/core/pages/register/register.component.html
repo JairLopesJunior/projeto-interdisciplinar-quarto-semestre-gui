@@ -1,85 +1,87 @@
 <form
-  [formGroup]="cadastroCliente"
+  [formGroup]="formRegistration"
   style="margin-bottom: 5rem"
   class="mt-3"
   (ngSubmit)="onSubmit()"
 >
-  <div class="row mb-3">
-    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
-      <div class="form-group" [ngClass]="aplicaCssErro('name')">
-        <label for="inputState">Name *</label>
-        <input
-          type="text"
-          class="form-control"
-          formControlName="name"
-          id="name"
-        />
+    <div class="row mb-3">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="form-group" [ngClass]="aplicaCssErro('name')">
+            <label for="inputState">Name *</label>
+            <input
+            type="text"
+            class="form-control"
+            formControlName="name"
+            id="name"
+            />
 
-        <app-campo-control-erro
-          [mostrarErro]="verificaValidTouched('name')"
-          msgErro="Name is required."
-        >
-        </app-campo-control-erro>
-      </div>
+            <app-campo-control-erro
+            [mostrarErro]="verificaValidTouched('name')"
+            msgErro="Name is required."
+            >
+            </app-campo-control-erro>
+        </div>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <div class="form-group" [ngClass]="aplicaCssErro('email')">
+            <label for="inputState">Email *</label>
+            <input
+                type="text"
+                class="form-control"
+                formControlName="email"
+                id="email"
+            />
+    
+            <app-campo-control-erro
+                [mostrarErro]="verificaValidTouched('email')"
+                msgErro="Email is required."
+            >
+            </app-campo-control-erro>
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <div class="form-group" [ngClass]="aplicaCssErro('password')">
+            <label for="inputState">Password *</label>
+            <input
+                type="text"
+                class="form-control"
+                formControlName="password"
+                id="password"
+            />
+    
+            <app-campo-control-erro
+                [mostrarErro]="verificaValidTouched('password')"
+                msgErro="Password is required."
+            >
+            </app-campo-control-erro>
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <div class="form-group" [ngClass]="aplicaCssErro('repeatPassword')">
+            <label for="inputState">Repeat password *</label>
+            <input
+                type="text"
+                class="form-control"
+                formControlName="repeatPassword"
+                id="repeatPassword"
+            />
+    
+            <app-campo-control-erro
+                [mostrarErro]="verificaValidTouched('repeatPassword')"
+                msgErro="Repeat password is required"
+            >
+            </app-campo-control-erro>
+            </div>
+        </div>
+
     </div>
 
-    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
-        <div class="form-group" [ngClass]="aplicaCssErro('nome')">
-          <label for="inputState">Email *</label>
-          <input
-            type="text"
-            class="form-control"
-            formControlName="email"
-            id="email"
-          />
-  
-          <app-campo-control-erro
-            [mostrarErro]="verificaValidTouched('email')"
-            msgErro="Email is required."
-          >
-          </app-campo-control-erro>
-        </div>
-      </div>
-
-      <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
-        <div class="form-group" [ngClass]="aplicaCssErro('password')">
-          <label for="inputState">Nome *</label>
-          <input
-            type="text"
-            class="form-control"
-            formControlName="password"
-            id="password"
-          />
-  
-          <app-campo-control-erro
-            [mostrarErro]="verificaValidTouched('password')"
-            msgErro="Password is required."
-          >
-          </app-campo-control-erro>
-        </div>
-      </div>
-
-      <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
-        <div class="form-group" [ngClass]="aplicaCssErro('repeatPassword')">
-          <label for="inputState">Repeat password *</label>
-          <input
-            type="text"
-            class="form-control"
-            formControlName="repeatPassword"
-            id="repeatPassword"
-          />
-  
-          <app-campo-control-erro
-            [mostrarErro]="verificaValidTouched('repeatPassword')"
-            msgErro="Repeat password is required"
-          >
-          </app-campo-control-erro>
-        </div>
-      </div>
-
-  <div>
-    <button class="btn btn-primary" [disabled]="componentRegistration.invalid">
-      Register
-    </button>
-  </div>
+    <div align="center">
+        <button class="btn btn-primary" [disabled]="formRegistration.invalid">
+        Register
+        </button>
+    </div>
 </form>
