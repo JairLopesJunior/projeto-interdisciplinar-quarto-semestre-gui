@@ -6,21 +6,21 @@
 >
     <div class="row mb-3">
         <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-        <div class="form-group" [ngClass]="aplicaCssErro('name')">
-            <label for="inputState">Name *</label>
-            <input
-            type="text"
-            class="form-control"
-            formControlName="name"
-            id="name"
-            />
+            <div class="form-group" [ngClass]="aplicaCssErro('name')">
+                <label for="inputState">Name *</label>
+                <input
+                type="text"
+                class="form-control"
+                formControlName="name"
+                id="name"
+                />
 
-            <app-campo-control-erro
-            [mostrarErro]="verificaValidTouched('name')"
-            msgErro="Name is required."
-            >
-            </app-campo-control-erro>
-        </div>
+                <app-campo-control-erro
+                [mostrarErro]="verificaValidTouched('name')"
+                msgErro="Name is required."
+                >
+                </app-campo-control-erro>
+            </div>
         </div>
 
         <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
@@ -81,7 +81,7 @@
 
     <div align="center">
         <button class="btn btn-primary" [disabled]="formRegistration.invalid">
-        Register
+            Register
         </button>
     </div>
 </form>

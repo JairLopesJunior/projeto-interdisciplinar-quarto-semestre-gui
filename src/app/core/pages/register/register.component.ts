@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { RegisterService } from 'src/app/services/register.service';
 
 @Component({
@@ -13,10 +14,11 @@ export class RegisterComponent implements OnInit {
   formRegistration: FormGroup;
 
   constructor(private _fb: FormBuilder,
-              private _registerService: RegisterService) { }
+              private _registerService: RegisterService,
+              private _router: Router) { }
 
   ngOnInit(): void {
-    this.componentForm();
+    this.registerForm();
   }
 
   onSubmit(): void {
@@ -25,7 +27,7 @@ export class RegisterComponent implements OnInit {
         next: register => {
           if(!!register) {
             alert(register)
-            //this._router.navigate([`usuario/${usuario.id}`]);
+            this._router.navigate([`login`]);
           }
         },
         error: err => {
@@ -49,7 +51,7 @@ export class RegisterComponent implements OnInit {
     };
   }
 
-  public componentForm(): void {
+  public registerForm(): void {
     this.formRegistration = this._fb.group({
       name: ['',  Validators.required],
       email: ['',  Validators.compose([
