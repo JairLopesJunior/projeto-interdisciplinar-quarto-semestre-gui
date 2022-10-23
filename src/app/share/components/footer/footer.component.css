@@ -2,10 +2,12 @@
     position: fixed; 
     bottom:0; 
     width: 100%;
-    background-color: gray;
-    color: white;
+    background-color: #E8E8E8;
 }
 
 footer {
+    display: flex;
+    justify-content: center !important;
+    align-items: center !important;
     height: 5vh;
 }
