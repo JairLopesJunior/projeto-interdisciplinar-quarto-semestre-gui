@@ -1,3 +1,4 @@
+import { LocalStorageService } from './../../../services/local-storage.service';
 import { Router } from '@angular/router';
 import { LoginService } from './../../../services/login.service';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
@@ -14,7 +15,8 @@ export class LoginComponent implements OnInit {
 
   constructor(private _fb: FormBuilder,
               private _loginService: LoginService,
-              private _router: Router) { }
+              private _router: Router,
+              private _storage: LocalStorageService) { }
 
   ngOnInit(): void {
     this.formLogin();
@@ -26,7 +28,8 @@ export class LoginComponent implements OnInit {
         next: login => {
           if(!!login) {
             alert(login)
-            this._router.navigate([`login`]);
+            this._storage.save(login);
+            //this._router.navigate([`login`]);
           }
         },
         error: err => {
