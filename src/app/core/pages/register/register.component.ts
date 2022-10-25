@@ -53,13 +53,31 @@ export class RegisterComponent implements OnInit {
 
   public registerForm(): void {
     this.formRegistration = this._fb.group({
-      name: ['',  Validators.required],
+      name: ['',  Validators.compose([
+          Validators.required,
+          Validators.minLength(1)
+        ])
+      ],
       email: ['',  Validators.compose([
         Validators.required,
-        Validators.email
+        Validators.email,
       ])],
-      password: ['',  Validators.required],
-      repeatPassword: ['',  Validators.required]
+      password: ['',  Validators.compose([
+          Validators.required,
+          Validators.minLength(8)
+        ])
+      ],
+      repeatPassword: ['',  Validators.compose([
+          Validators.required,
+          Validators.minLength(8)
+        ])
+      ],
     })
+  }
+
+  public verificaValidTouchedAndIfAreSamePasswords(field: string): boolean | undefined {
+    let password = this.formRegistration.get('password')?.value;
+    let repeatPassword = this.formRegistration.get('repeatPassword')?.value;
+    return password !== repeatPassword;
   }
 }
