@@ -11,11 +11,17 @@
 
     <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent" [ngClass]="{ 'show': navbarOpen }">
 
-        <!--<ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a [routerLink]="['home']" routerLinkActive='active' class="nav-link"><b>HOME</b></a>
-            </li>
-        </ul>-->
+        <ul class="navbar-nav mr-auto" style="margin-right: 1.5rem;">
+            <i class="fa fa-file fa-2x"></i>
+        </ul>
+
+        <ul class="navbar-nav mr-auto" style="margin-right: 1.5rem;">
+            <i class="fa fa-cog fa-2x"></i>
+        </ul>
+
+        <ul [routerLink]="['/login']" class="navbar-nav mr-auto">
+            <i class="fa fa-power-off fa-2x"></i>
+        </ul>
 
     </div>
 </nav>

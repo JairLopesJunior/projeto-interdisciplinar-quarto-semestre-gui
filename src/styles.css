@@ -2,6 +2,6 @@
 
 @import '~bootstrap/dist/css/bootstrap.min.css';
 
-a {
-    cursor: pointer;
+a, ul {
+    cursor: pointer !important;
 }
