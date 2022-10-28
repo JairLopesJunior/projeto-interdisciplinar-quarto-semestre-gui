@@ -1,7 +1,14 @@
 <app-navbar></app-navbar>
 
-<div class="container mt-4">
-    <router-outlet></router-outlet>
-</div>
+<div style="width: 40%;">
+  <canvas
+    baseChart
+    [chartType]="'line'"
+    [legend]="true"
+    [datasets]="chartData"
+    [options]="chartOptions"
+  >
+  </canvas>
+</div>  
 
 <app-footer></app-footer>

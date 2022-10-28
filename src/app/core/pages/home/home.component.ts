@@ -1,3 +1,4 @@
+import { Chart } from 'chart.js';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
   }
 
+  chartData = [{
+      data: [
+        setInterval(function () {
+          Math.floor(Math.random() * 10);
+        }, 100)
+      ] as any,
+      label: 'Temperatura', 
+      backgroundColor: 'rgba(77,166,253,0.85)'
+  }];
+
+  chartOptions = {
+    responsive: true
+  };
 }
