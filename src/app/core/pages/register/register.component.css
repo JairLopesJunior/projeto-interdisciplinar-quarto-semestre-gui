@@ -13,3 +13,15 @@
     color: white !important;
     background-color: #3b5998;
 }
+
+button {
+    background-color: #EBEBEB !important;
+    border-color: #EBEBEB !important;
+    color: black !important;
+}
+
+button:hover {
+    background-color: black !important;
+    border-color: black !important;
+    color: #EBEBEB !important;
+}
