@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { SharedModule } from './share/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { NgChartsModule, NgChartsConfiguration } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -16,11 +17,14 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     SharedModule,
     PagesModule,
+    NgChartsModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    { provide: NgChartsConfiguration, useValue: { generateColors: false }}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

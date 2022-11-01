@@ -2,6 +2,12 @@
 
 @import '~bootstrap/dist/css/bootstrap.min.css';
 
+html, 
+body {
+    overflow-x: hidden !important;
+    height: 100%;      
+}
+
 a, ul {
     cursor: pointer !important;
 }
