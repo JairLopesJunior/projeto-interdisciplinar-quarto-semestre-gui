@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { LoginService } from './../../../services/login.service';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { NotifierService } from 'angular-notifier';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,10 @@ export class LoginComponent implements OnInit {
   constructor(private _fb: FormBuilder,
               private _loginService: LoginService,
               private _router: Router,
-              private _storage: LocalStorageService) { }
+              private _storage: LocalStorageService,
+              private _notifierService: NotifierService) {
+    this._notifierService = _notifierService;
+  }
 
   ngOnInit(): void {
     this.formLogin();
@@ -27,9 +31,12 @@ export class LoginComponent implements OnInit {
       this._loginService.save(this.loginForm.getRawValue()).subscribe({
         next: login => {
           if(!!login) {
+            if(true) {
+              this.verifyIfUserHasHaveRegistrationToRegistration();
+            }
             alert(login)
             this._storage.save(login);
-            //this._router.navigate([`login`]);
+            this._router.navigate([``]);
           }
         },
         error: err => {
@@ -61,5 +68,10 @@ export class LoginComponent implements OnInit {
       ])],
       password: ['',  Validators.required]
     })
+  }
+
+  private verifyIfUserHasHaveRegistrationToRegistration(): void {
+
+    this._notifierService.notify('success', 'Data successfully updated!!');
   }
 }
