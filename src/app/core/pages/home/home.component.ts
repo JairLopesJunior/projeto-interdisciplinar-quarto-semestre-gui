@@ -71,9 +71,13 @@ export class HomeComponent implements OnInit {
         this.lineChartData.datasets[0].data.shift();
         this.lineChartData.labels?.shift();
       }
+<<<<<<< HEAD
 
       let currentTemp = Math.floor(Math.random() * 35);
       (this.lineChartData.datasets[0].data as number[]).push(currentTemp);
+=======
+      (this.lineChartData.datasets[0].data as number[]).push(Math.floor(Math.random() * 35));
+>>>>>>> 2ccdc9062d7fd5da78f7c3748bff1ff2b375c361
       this.lineChartData.labels?.push(moment().format('HH:mm:ss'));
       if(currentTemp < 15) {
         this.lineChartData.datasets[0].backgroundColor = 'rgba(0, 0, 239, 0.7)';
