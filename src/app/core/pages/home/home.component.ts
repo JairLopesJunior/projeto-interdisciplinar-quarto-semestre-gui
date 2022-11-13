@@ -71,7 +71,6 @@ export class HomeComponent implements OnInit {
         this.lineChartData.labels?.shift();
 
       }
-      console.log('a');
       (this.lineChartData.datasets[0].data as number[]).push(Math.floor(Math.random() * 35));
       this.lineChartData.labels?.push(moment().format('HH:mm:ss'));
       this.chart?.update();

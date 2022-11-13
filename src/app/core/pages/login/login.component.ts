@@ -2,8 +2,8 @@ import { LocalStorageService } from './../../../services/local-storage.service';
 import { Router } from '@angular/router';
 import { LoginService } from './../../../services/login.service';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
-import { NotifierService } from 'angular-notifier';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NotifierService, NotifierOptions } from 'angular-notifier';
 
 @Component({
   selector: 'app-login',
@@ -11,6 +11,8 @@ import { NotifierService } from 'angular-notifier';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+
+  @ViewChild('notification') notificationTemplate: any;
 
   loginForm: FormGroup;
 
@@ -29,19 +31,17 @@ export class LoginComponent implements OnInit {
   onSubmit(): void {
     if(this.loginForm.valid) {
       this._loginService.save(this.loginForm.getRawValue()).subscribe({
-        next: login => {
-          if(!!login) {
+        next: resp => {
+          if(!!resp) {
             if(true) {
               this.verifyIfUserHasHaveRegistrationToRegistration();
             }
-            alert(login)
-            this._storage.save(login);
             this._router.navigate([``]);
           }
         },
         error: err => {
           if(!!err?.statusText) {
-            alert(err.statusText);
+            this._notifierService.notify('error', err.statusText);
           }
         }
       });
@@ -71,7 +71,10 @@ export class LoginComponent implements OnInit {
   }
 
   private verifyIfUserHasHaveRegistrationToRegistration(): void {
-
-    this._notifierService.notify('success', 'Data successfully updated!!');
+    this._notifierService.show({
+      message: `<a href="http://localhost:4200/login" target="_blank">Clique aqui</a> para terminar o cadastro dos dados complementares.`,
+      type: 'success',
+      template: this.notificationTemplate
+    });
   }
 }
