@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
           if(!!login) {
             alert(login)
             this._storage.save(login);
-            //this._router.navigate([`login`]);
+            this._router.navigate([``]);
           }
         },
         error: err => {
@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
   }
 
   verificaValidTouched(campo: string) {
-    return !this.loginForm.get(campo)?.valid 
+    return !this.loginForm.get(campo)?.valid
     && this.loginForm.get(campo)?.touched;
   }
 

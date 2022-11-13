@@ -32,7 +32,7 @@ import { NgChartsModule } from 'ng2-charts';
         path: 'login', component: LoginComponent
       },
       {
-       path: '', component: HomeComponent 
+        path: '', component: HomeComponent
       }
     ])
   ],

@@ -31,8 +31,9 @@ export class HomeComponent implements OnInit {
     datasets: [
       {
         data: [0],
-        label: 'Temperatura', 
-        backgroundColor: 'rgba(77,166,253,0.85)'
+        label: 'Temperatura',
+        backgroundColor: 'rgba(77,166,253,0.85)',
+        fill: true
       }
     ],
     labels: [0]
@@ -42,11 +43,11 @@ export class HomeComponent implements OnInit {
     animation: false,
     scales: {
       x: {},
-      'y-axis-0': 
+      'y-axis-0':
         {
           position: 'left',
           ticks : {
-            max : 35,  
+            max : 35,
             stepSize: 1,
             min : 20
           }
@@ -69,11 +70,21 @@ export class HomeComponent implements OnInit {
       if(lengthChart >= 10) {
         this.lineChartData.datasets[0].data.shift();
         this.lineChartData.labels?.shift();
-
       }
-      console.log('a');
-      (this.lineChartData.datasets[0].data as number[]).push(Math.floor(Math.random() * 35));
+
+      let currentTemp = Math.floor(Math.random() * 35);
+      (this.lineChartData.datasets[0].data as number[]).push(currentTemp);
       this.lineChartData.labels?.push(moment().format('HH:mm:ss'));
+      if(currentTemp < 15) {
+        this.lineChartData.datasets[0].backgroundColor = 'rgba(0, 0, 239, 0.7)';
+      } else if(currentTemp < 21) {
+        this.lineChartData.datasets[0].backgroundColor = 'rgba(0, 255, 0, 0.65)';
+      } else if(currentTemp < 28) {
+        this.lineChartData.datasets[0].backgroundColor = 'rgba(247, 255, 0, 0.65)';
+      } else {
+        this.lineChartData.datasets[0].backgroundColor = 'rgba(255, 0, 0, 0.72)';
+      }
+
       this.chart?.update();
     }))
     .subscribe();
