@@ -9,13 +9,15 @@ import { RegisterComponent } from './register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { NgChartsModule } from 'ng2-charts';
+import { ArduinoComponent } from './arduino/arduino.component';
 
 @NgModule({
   declarations: [
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    NavbarComponent
+    NavbarComponent,
+    ArduinoComponent
   ],
   imports: [
     CommonModule,

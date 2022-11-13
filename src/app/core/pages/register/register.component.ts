@@ -23,6 +23,7 @@ export class RegisterComponent implements OnInit {
 
   onSubmit(): void {
     if(this.formRegistration.valid) {
+      delete this.formRegistration.value.repeatPassword;
       this._registerService.save(this.formRegistration.getRawValue()).subscribe({
         next: register => {
           if(!!register) {

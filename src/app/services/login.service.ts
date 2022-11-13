@@ -9,13 +9,13 @@ import { Injectable } from '@angular/core';
 })
 export class LoginService {
 
-  private _loginUrl: string = 'http://localhost:8080/api/login';
+  private _loginUrl: string = 'http://localhost:3333/auth';
 
   constructor(private _httpClient: HttpClient) { }
 
   save(login: LoginModel): Observable<LoginResponse> {
     let a = new LoginResponse();
-    a.id = 123;
+    a.user_id = 123;
     a.token = 'asda';
     return of(a);
     //return this._httpClient.post<LoginResponse>(`${this._loginUrl}`, login);

@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { LoginService } from './../../../services/login.service';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NotifierService, NotifierOptions } from 'angular-notifier';
+import { NotifierService } from 'angular-notifier';
 
 @Component({
   selector: 'app-login',

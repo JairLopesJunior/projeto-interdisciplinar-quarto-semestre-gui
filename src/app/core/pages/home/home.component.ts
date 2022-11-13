@@ -1,3 +1,4 @@
+import { NotifierService } from 'angular-notifier';
 import { ChartConfiguration, ChartType } from 'chart.js';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Chart } from 'chart.js';
@@ -18,7 +19,8 @@ export class HomeComponent implements OnInit {
   public lineChartType: ChartType = 'line';
   public chartName = 'Name is here';
 
-  constructor() {
+  constructor(private _notifierService: NotifierService) {
+    this._notifierService = _notifierService;
     Chart.register(Annotation);
   }
 
@@ -32,7 +34,8 @@ export class HomeComponent implements OnInit {
       {
         data: [0],
         label: 'Temperatura', 
-        backgroundColor: 'rgba(77,166,253,0.85)'
+        backgroundColor: 'rgba(77,166,253,0.85)',
+        fill: true
       }
     ],
     labels: [0]
@@ -69,10 +72,25 @@ export class HomeComponent implements OnInit {
       if(lengthChart >= 10) {
         this.lineChartData.datasets[0].data.shift();
         this.lineChartData.labels?.shift();
-
       }
-      (this.lineChartData.datasets[0].data as number[]).push(Math.floor(Math.random() * 35));
+
+      let currentTemp = Math.floor(Math.random() * 35);
+      (this.lineChartData.datasets[0].data as number[]).push(currentTemp);
       this.lineChartData.labels?.push(moment().format('HH:mm:ss'));
+      if(currentTemp < 15) {
+        this._notifierService.notify('error', `Alert: The chart is temperature ${currentTemp}`);
+        this.lineChartData.datasets[0].backgroundColor = 'rgba(0, 0, 239, 0.7)'; // Azul
+      } else if(currentTemp <= 21) {
+        this._notifierService.notify('error', `Alert: The chart is temperature ${currentTemp}`);
+        this.lineChartData.datasets[0].backgroundColor = 'rgba(0, 255, 0, 0.65)'; // Verde
+      } else if(currentTemp <= 28) {
+        this._notifierService.notify('error', `Alert: The chart is temperature ${currentTemp}`);
+        this.lineChartData.datasets[0].backgroundColor = 'rgba(247, 255, 0, 0.65)'; // Amarelo
+      } else if(currentTemp > 28) {
+        this._notifierService.notify('error', `Alert: The chart is temperature ${currentTemp}`);
+        this.lineChartData.datasets[0].backgroundColor = 'rgba(255, 0, 0, 0.72)'; // Vermelho
+      }
+
       this.chart?.update();
     }))
     .subscribe();
