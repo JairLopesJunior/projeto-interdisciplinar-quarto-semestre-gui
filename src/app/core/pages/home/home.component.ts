@@ -33,7 +33,7 @@ export class HomeComponent implements OnInit {
     datasets: [
       {
         data: [0],
-        label: 'Temperatura', 
+        label: 'Temperatura',
         backgroundColor: 'rgba(77,166,253,0.85)',
         fill: true
       }
@@ -45,11 +45,11 @@ export class HomeComponent implements OnInit {
     animation: false,
     scales: {
       x: {},
-      'y-axis-0': 
+      'y-axis-0':
         {
           position: 'left',
           ticks : {
-            max : 35,  
+            max : 35,
             stepSize: 1,
             min : 20
           }

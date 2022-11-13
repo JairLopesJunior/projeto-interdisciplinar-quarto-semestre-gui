@@ -41,7 +41,7 @@ export class RegisterComponent implements OnInit {
   }
 
   verificaValidTouched(campo: string) {
-    return !this.formRegistration.get(campo)?.valid 
+    return !this.formRegistration.get(campo)?.valid
     && this.formRegistration.get(campo)?.touched;
   }
 

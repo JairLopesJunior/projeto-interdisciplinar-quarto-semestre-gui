@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
   }
 
   verificaValidTouched(campo: string) {
-    return !this.loginForm.get(campo)?.valid 
+    return !this.loginForm.get(campo)?.valid
     && this.loginForm.get(campo)?.touched;
   }
 
