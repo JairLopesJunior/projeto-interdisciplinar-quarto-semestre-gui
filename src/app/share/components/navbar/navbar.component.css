@@ -1,5 +1,7 @@
 nav {
     background-color: #E8E8E8 !important;
+    height: 2rem;
+    background-color: #EEEE00 !important;
 }
 
 #navbarSupportedContent {
@@ -7,7 +9,7 @@ nav {
 }
 
 .fa-power-off:hover, .fa-file:hover, .fa-cog:hover {
-    color: gray;
+    color: #43970a;
 }
 
 @media (max-width: 991px) {
