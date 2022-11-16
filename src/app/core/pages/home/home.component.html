@@ -3,11 +3,11 @@
   <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3"></div>
 
   <div class="col-9 col-sm-9 col-md-9 col-lg-9 col-xl-9" style="background-color: #EBEBEB; height: 100vh;">
-    <div align="center" style="display: flex; height: 100% !important; margin-bottom: 2rem; margin-top: 2rem;" class="row home">
+    <div align="center" style="display: flex; height: 100vh !important; margin-bottom: 2rem; margin-top: 2rem;" class="row home">
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
     
-        <div class="row" style="height: 10% !important; align-items: center;">
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="row" style="height: 10vh !important; align-items: center;">
+          <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10">
     
               <span style="color: #f12a26; font-size: 2.2vw;">
                 {{ chartName01 }} 
@@ -46,18 +46,24 @@
               </span>
     
           </div>
+
+          <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2">
+            <ul [routerLink]="['/login']" class="navbar-nav mr-auto" style="color: #f12a26 !important;">
+              <i class="fa fa-bars fa-2x"></i>
+            </ul>
+          </div>
         </div>
 
-        <div class="row" style="height: 30% !important; align-items: center;">
+        <div class="row" style="height: 30vh !important; align-items: center;">
           <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
             sdfsdfsf
           </div>
         </div>
     
-        <div class="row" style="height: 60% !important; align-items: center;">
+        <div class="row" style="height: 60vh !important; align-items: center; align-items: flex-start;">
           <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">  
             <canvas
-            style="border-radius: 1.5rem; background-color: white; padding: 2rem;"
+            style="border-radius: 1.5rem; background-color: white; padding: 2rem; height: 50vh;"
             baseChart
             [data]="lineChartData"
             [options]="lineChartOptions"
