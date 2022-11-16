@@ -9,7 +9,7 @@ nav {
 }
 
 .fa-power-off:hover, .fa-file:hover, .fa-cog:hover {
-    color: #43970a;
+    color: white;
 }
 
 @media (max-width: 991px) {

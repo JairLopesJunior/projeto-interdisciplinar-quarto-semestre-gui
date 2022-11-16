@@ -42,8 +42,11 @@ export class HomeComponent implements OnInit {
       {
         data: [0],
         label: 'Temperatura',
-        backgroundColor: 'rgba(77,166,253,0.85)',
-        fill: true
+        tension: 0.4,
+        backgroundColor: 'rgba(207,235,255,0.8)',
+        fill: true,
+        borderWidth: 1,
+        borderColor: 'rgba(29,162,255,1)'
       }
     ],
     labels: [0]
@@ -51,6 +54,7 @@ export class HomeComponent implements OnInit {
 
   public lineChartOptions: ChartConfiguration['options'] = {
     animation: false,
+    hitRadius: 2,
     scales: {
       x: {},
       'y-axis-0':
