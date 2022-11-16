@@ -7,7 +7,7 @@
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
     
         <div class="row" style="height: 10vh !important; align-items: center;">
-          <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10">
+          <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10" style="display: flex; justify-content: flex-start; padding-left: 10vw;">
     
               <span style="color: #f12a26; font-size: 2.2vw;">
                 {{ chartName01 }} 
@@ -54,16 +54,54 @@
           </div>
         </div>
 
-        <div class="row" style="height: 30vh !important; align-items: center;">
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-            sdfsdfsf
+        <div class="row" style="height: 30vh !important; align-items: center; padding-left: 8vw; padding-right: 8vw;">
+          <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4" style="padding: 0px;">
+            <span style="border-radius: 1.5rem; background-color: white; padding: 2rem; display: flex; justify-content: center; width: 17vw; padding: 0.6rem;">
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12"> 
+                  <span style="font-size: 1.5vw; opacity: 0.6;">Current Temperature</span>
+                </div>
+
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12"> 
+                  <span *ngIf="!!currentTemp" style="font-size: 4vw;">{{ currentTemp }}ºC</span>
+                </div>
+              </div>
+            </span>
+          </div>
+
+          <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4" style="padding: 0px;">
+            <span style="border-radius: 1.5rem; background-color: white; padding: 2rem; display: flex; justify-content: center; width: 17vw; padding: 0.6rem;">
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12"> 
+                  <span style="font-size: 1.5vw; opacity: 0.6;">Current Temperature</span>
+                </div>
+
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12"> 
+                  <span *ngIf="!!currentTemp" style="font-size: 4vw;">{{ currentTemp }}ºC</span>
+                </div>
+              </div>
+            </span>
+          </div>
+
+          <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4" style="padding: 0px;">
+            <span style="border-radius: 1.5rem; background-color: white; padding: 2rem; display: flex; justify-content: center; width: 17vw; padding: 0.6rem;">
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12"> 
+                  <span style="font-size: 1.5vw; opacity: 0.6;">Current Temperature</span>
+                </div>
+
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12"> 
+                  <span *ngIf="!!currentTemp" style="font-size: 4vw;">{{ currentTemp }}ºC</span>
+                </div>
+              </div>
+            </span>
           </div>
         </div>
     
         <div class="row" style="height: 60vh !important; align-items: center; align-items: flex-start;">
           <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">  
             <canvas
-            style="border-radius: 1.5rem; background-color: white; padding: 2rem; height: 50vh;"
+            style="border-radius: 1.5rem; background-color: white; padding: 2rem; height: 50vh !important; min-height: 50vh;"
             baseChart
             [data]="lineChartData"
             [options]="lineChartOptions"

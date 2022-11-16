@@ -26,6 +26,7 @@ export class HomeComponent implements OnInit {
   public chartName07 = 'A';
   public chartName08 = 'F';
   public chartName09 = 'E';
+  public currentTemp: number;
 
   constructor(private _notifierService: NotifierService) {
     this._notifierService = _notifierService;
@@ -87,6 +88,7 @@ export class HomeComponent implements OnInit {
       }
 
       let currentTemp = Math.floor(Math.random() * 35);
+      this.currentTemp = currentTemp;
       (this.lineChartData.datasets[0].data as number[]).push(currentTemp);
       this.lineChartData.labels?.push(moment().format('HH:mm:ss'));
       /*if(currentTemp <= 15) {
