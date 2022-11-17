@@ -73,11 +73,28 @@
             <span style="border-radius: 1.5rem; background-color: white; padding: 2rem; display: flex; justify-content: center; width: 17vw; padding: 0.6rem;">
               <div class="row">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12"> 
-                  <span style="font-size: 1.5vw; opacity: 0.6;">Current Temperature</span>
+                  <span style="font-size: 1.5vw; opacity: 0.6;">Highlights of the day</span>
                 </div>
 
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12"> 
-                  <span *ngIf="!!currentTemp" style="font-size: 4vw;">{{ currentTemp }}ºC</span>
+                  <span *ngIf="!!currentTemp">
+                    <i class="fa fa-angle-up fa-2x" style="color: red;"></i>
+                    <span style="font-size: 1.4vw;"> {{ tempMax }}ºC</span>
+                  </span>
+                </div>
+
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12"> 
+                  <span *ngIf="!!currentTemp">
+                    <i class="fa fa-angle-down fa-2x" style="color: blue;"></i>
+                    <span style="font-size: 1.4vw;"> {{ tempMin }}ºC</span>
+                  </span>
+                </div>
+
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12"> 
+                  <span *ngIf="!!currentTemp">
+                    <i class="fa fa-minus fa-1x" style="color: green;"></i>
+                    <span style="font-size: 1.4vw;"> {{ tempMiddle }}ºC</span>
+                  </span>
                 </div>
               </div>
             </span>

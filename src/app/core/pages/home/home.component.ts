@@ -16,6 +16,11 @@ export class HomeComponent implements OnInit {
 
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
 
+  tempMax = 0;
+  tempMin = Number.MAX_VALUE;
+  tempMiddle = 0;
+  lastValue = 0;
+
   public lineChartType: ChartType = 'line';
   public chartName01 = 'T';
   public chartName02 = 'E';
@@ -87,10 +92,22 @@ export class HomeComponent implements OnInit {
         this.lineChartData.labels?.shift();
       }
 
-      let currentTemp = Math.floor(Math.random() * 35);
+      let currentTemp = Math.floor(35 * Math.random() + 20);
       this.currentTemp = currentTemp;
       (this.lineChartData.datasets[0].data as number[]).push(currentTemp);
+
       this.lineChartData.labels?.push(moment().format('HH:mm:ss'));
+      if(currentTemp > this.tempMax) {
+        this.tempMax = currentTemp;
+      }
+      if(currentTemp < this.tempMin) {
+        this.tempMin = currentTemp;
+      }
+
+      if(currentTemp !== this.lastValue) {
+        this.tempMiddle = Math.trunc(((currentTemp + this.tempMiddle) / 2));
+      }
+
       /*if(currentTemp <= 15) {
         this._notifierService.notify('error', `Alert: The chart is temperature ${currentTemp}`);
         this.lineChartData.datasets[0].backgroundColor = 'rgba(0, 0, 239, 0.7)'; // Azul
