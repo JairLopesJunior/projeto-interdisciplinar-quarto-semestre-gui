@@ -20,6 +20,11 @@ export class HomeComponent implements OnInit {
   tempMin = Number.MAX_VALUE;
   tempMiddle = 0;
   lastValue = 0;
+  city = 'Araras';
+  state = 'BR';
+  dayOfWeek = 'Segunda-feira';
+  mounthOfYear = 'Nov';
+  dayOfMounth = '14';
 
   public lineChartType: ChartType = 'line';
   public chartName01 = 'T';
