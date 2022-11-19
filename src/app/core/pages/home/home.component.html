@@ -88,7 +88,7 @@
             <div mdbDropdown class="dropdown" style="display: flex; justify-content: flex-start;">
               <button
                 style="padding-left: 1vw;"
-                class="btn btn-secondary dropdown-toggle"  
+                class="btn btn-secondary dropdown-toggle button"  
                 role="button" 
                 id="dropdownMenuLink" 
                 data-bs-toggle="dropdown" 
@@ -114,7 +114,61 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-                ...
+
+                <form>
+                  <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+            
+                      <input type="text" placeholder="City:" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    </div>
+  
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                      <select class="form-select" aria-label="Default select example">
+                        <option selected>< 16º</option>
+                        <option value="1" >Blue</option>
+                        <option value="2">Green</option>
+                        <option value="3">Red</option>
+                        <option value="3">Yellow</option>
+                      </select>
+                    </div>
+
+                  </div>
+                  
+                  <div class="row mt-3">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                      <select class="form-select" aria-label="Default select example">
+                        <option selected>< 21º</option>
+                        <option value="1">Blue</option>
+                        <option value="2">Green</option>
+                        <option value="3">Red</option>
+                        <option value="3">Yellow</option>
+                      </select>
+                    </div>
+  
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                      <select class="form-select" aria-label="Default select example">
+                        <option selected>< 29º</option>
+                        <option value="1">Blue</option>
+                        <option value="2">Green</option>
+                        <option value="3">Red</option>
+                        <option value="3">Yellow</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="row mt-3">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                      <select class="form-select" aria-label="Default select example">
+                        <option selected>> 29º</option>
+                        <option value="1">Blue</option>
+                        <option value="2">Green</option>
+                        <option value="3">Red</option>
+                        <option value="3">Yellow</option>
+                      </select>
+                    </div>
+                  </div>
+                </form>
+
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
