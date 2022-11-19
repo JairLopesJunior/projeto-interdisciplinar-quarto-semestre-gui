@@ -1,20 +1,29 @@
 import { NotifierService } from 'angular-notifier';
 import { ChartConfiguration, ChartType } from 'chart.js';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Chart } from 'chart.js';
 import {default as Annotation} from 'chartjs-plugin-annotation';
 import { BaseChartDirective } from 'ng2-charts';
 import * as moment from 'moment'
 import { interval, map } from 'rxjs';
+import { ItemModel } from '@syncfusion/ej2-angular-splitbuttons';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class HomeComponent implements OnInit {
 
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
+
+  public items: ItemModel[] = [
+    {
+        text: 'Update device',
+        iconCss: ''
+    }
+  ];
 
   tempMax = 0;
   tempMin = Number.MAX_VALUE;

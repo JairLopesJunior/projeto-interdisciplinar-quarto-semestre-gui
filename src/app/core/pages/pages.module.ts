@@ -1,3 +1,4 @@
+import { enableRipple } from '@syncfusion/ej2-base';
 import { NavbarComponent } from './../../share/components/navbar/navbar.component';
 import { SharedModule } from './../../share/shared.module';
 import { RouterModule } from '@angular/router';
@@ -10,6 +11,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { NgChartsModule } from 'ng2-charts';
 import { ArduinoComponent } from './arduino/arduino.component';
+import { DropDownButtonModule } from '@syncfusion/ej2-angular-splitbuttons';
+import { ButtonModule } from '@syncfusion/ej2-angular-buttons';
+
+enableRipple(false);
 
 @NgModule({
   declarations: [
@@ -23,6 +28,8 @@ import { ArduinoComponent } from './arduino/arduino.component';
     CommonModule,
     CampoControlErroModule,
     FormsModule,
+    ButtonModule,
+    DropDownButtonModule,
     SharedModule,
     NgChartsModule,
     ReactiveFormsModule,
