@@ -13,6 +13,7 @@ import { NgChartsModule } from 'ng2-charts';
 import { ArduinoComponent } from './arduino/arduino.component';
 import { DropDownButtonModule } from '@syncfusion/ej2-angular-splitbuttons';
 import { ButtonModule } from '@syncfusion/ej2-angular-buttons';
+import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
 
 enableRipple(false);
 
@@ -30,6 +31,7 @@ enableRipple(false);
     FormsModule,
     ButtonModule,
     DropDownButtonModule,
+    DropDownListModule,
     SharedModule,
     NgChartsModule,
     ReactiveFormsModule,

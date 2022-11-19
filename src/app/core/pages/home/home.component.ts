@@ -6,7 +6,7 @@ import {default as Annotation} from 'chartjs-plugin-annotation';
 import { BaseChartDirective } from 'ng2-charts';
 import * as moment from 'moment'
 import { interval, map } from 'rxjs';
-import { ItemModel } from '@syncfusion/ej2-angular-splitbuttons';
+import { DropDownButtonComponent, ItemModel } from '@syncfusion/ej2-angular-splitbuttons';
 
 @Component({
   selector: 'app-home',
@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
   public items: ItemModel[] = [
     {
         text: 'Update device',
-        iconCss: ''
+        iconCss: 'sdfs'
     }
   ];
 
@@ -70,6 +70,10 @@ export class HomeComponent implements OnInit {
       }
     ],
     labels: [0]
+  }
+
+  public OnAfterClose(args: DropDownButtonComponent): void {
+    console.log(args.content);
   }
 
   public lineChartOptions: ChartConfiguration['options'] = {
@@ -138,5 +142,9 @@ export class HomeComponent implements OnInit {
       this.chart?.update();
     }))
     .subscribe();
+  }
+
+  public alert(i: string | undefined): void {
+    console.log(i);
   }
 }

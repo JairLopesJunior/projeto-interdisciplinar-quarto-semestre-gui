@@ -85,7 +85,40 @@
           </div>
 
           <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2">
-            <button align='Right' style="border: 0px;" ejs-dropdownbutton [items]='items' iconCss='fa fa-bars fa-2x'></button>
+            <!--<button #ddl ejs-dropdownbutton [items]='items' (select)="OnAfterClose(ddl)" style="border: 0px;" iconCss='fa fa-bars fa-2x'></button>-->
+            <div mdbDropdown class="dropdown">
+              <button
+                class="btn btn-secondary dropdown-toggle"  
+                role="button" 
+                id="dropdownMenuLink" 
+                data-bs-toggle="dropdown" 
+                aria-expanded="false"
+              >
+                <i class="fa fa-bars fa-2x"></i>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" *ngFor="let i of items">
+                <li class="dropdown-item" (click)="alert(i.text)">{{ i.text }}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                ...
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+              </div>
+            </div>
           </div>
         </div>
 
