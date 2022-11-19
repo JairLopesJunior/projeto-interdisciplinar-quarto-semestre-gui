@@ -84,10 +84,10 @@
               </span>
           </div>
 
-          <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2">
-            <!--<button #ddl ejs-dropdownbutton [items]='items' (select)="OnAfterClose(ddl)" style="border: 0px;" iconCss='fa fa-bars fa-2x'></button>-->
-            <div mdbDropdown class="dropdown">
+          <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2" style="padding: 0px;">
+            <div mdbDropdown class="dropdown" style="display: flex; justify-content: flex-start;">
               <button
+                style="padding-left: 1vw;"
                 class="btn btn-secondary dropdown-toggle"  
                 role="button" 
                 id="dropdownMenuLink" 
@@ -97,18 +97,20 @@
                 <i class="fa fa-bars fa-2x"></i>
               </button>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" *ngFor="let i of items">
-                <li class="dropdown-item" (click)="alert(i.text)">{{ i.text }}</li>
+                <li class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deviceModal">
+                    {{ i.text }}
+                </li>
               </ul>
             </div>
           </div>
         </div>
 
         <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
+        <div class="modal fade" id="deviceModal" tabindex="-1" aria-labelledby="deviceModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <h5 class="modal-title" id="deviceModalLabel">Update device</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">

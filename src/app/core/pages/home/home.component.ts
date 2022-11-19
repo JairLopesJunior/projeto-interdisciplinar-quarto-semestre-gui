@@ -61,7 +61,7 @@ export class HomeComponent implements OnInit {
     datasets: [
       {
         data: [0],
-        label: 'Temperatura',
+        label: 'Temperature',
         tension: 0.4,
         backgroundColor: 'rgba(207,235,255,0.8)',
         fill: true,
