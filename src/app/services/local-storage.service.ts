@@ -19,4 +19,9 @@ export class LocalStorageService {
     let userData: LoginResponse = JSON.parse(localStorage.getItem(this.key) as string);
     return userData.token;
   }
+
+  public getUserId(): number {
+    let userData: LoginResponse = JSON.parse(localStorage.getItem(this.key) as string);
+    return userData.user_id;
+  }
 }
