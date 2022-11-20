@@ -22,19 +22,19 @@
                 <div class="row mb-3">
                     <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                         <div class="form-group" [ngClass]="aplicaCssErro('email')">
-                        <label for="inputState">Email *</label>
-                        <input
-                            type="text"
-                            class="form-control"
-                            formControlName="email"
-                            id="email"
-                        />
-                
-                        <app-campo-control-erro
-                            [mostrarErro]="verificaValidTouched('email')"
-                            msgErro="Email is required."
-                        >
-                        </app-campo-control-erro>
+                            <label for="inputState">Email *</label>
+                            <input
+                                type="text"
+                                class="form-control"
+                                formControlName="email"
+                                id="email"
+                            />
+                    
+                            <app-campo-control-erro
+                                [mostrarErro]="verificaValidTouched('email')"
+                                msgErro="Email is required."
+                            >
+                            </app-campo-control-erro>
                         </div>
                     </div>
 

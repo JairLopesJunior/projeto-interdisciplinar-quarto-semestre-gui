@@ -12,7 +12,7 @@
           </div>
 
           <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-            <img src="assets/logotipo.png" style="height: 17vh; width: 17vw;">
+            <img src="assets/images/img.png" style="height: 22vh; width: 13vw;">
           </div>
 
           <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
@@ -115,16 +115,24 @@
               </div>
               <div class="modal-body">
 
-                <form>
+                <form
+                  [formGroup]="deviceForm" 
+                  (ngSubmit)="onSubmit()">
                   <div class="row">
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
-            
-                      <input type="text" placeholder="City:" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                      <div class="form-group" [ngClass]="aplicaCssErro('city')">
+                        <input type="text" placeholder="City *" class="form-control" formControlName="city" id="city"/>
+
+                        <app-campo-control-erro
+                          [mostrarErro]="verificaValidTouched('city')"
+                          msgErro="City is required."
+                        ></app-campo-control-erro>
+                      </div>
                     </div>
   
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
-                      <select class="form-select" aria-label="Default select example">
-                        <option selected>< 16º</option>
+                      <select class="form-select" aria-label="Default select example" class="form-control" id="colorSelectOne">
+                        <option selected>Select a color < 16º</option>
                         <option value="1" >Blue</option>
                         <option value="2">Green</option>
                         <option value="3">Red</option>
@@ -137,7 +145,7 @@
                   <div class="row mt-3">
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                       <select class="form-select" aria-label="Default select example">
-                        <option selected>< 21º</option>
+                        <option selected>Select a color < 21º</option>
                         <option value="1">Blue</option>
                         <option value="2">Green</option>
                         <option value="3">Red</option>
@@ -147,7 +155,7 @@
   
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                       <select class="form-select" aria-label="Default select example">
-                        <option selected>< 29º</option>
+                        <option selected>Select a color < 29º</option>
                         <option value="1">Blue</option>
                         <option value="2">Green</option>
                         <option value="3">Red</option>
@@ -159,7 +167,7 @@
                   <div class="row mt-3">
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                       <select class="form-select" aria-label="Default select example">
-                        <option selected>> 29º</option>
+                        <option selected>Select a color > 29º</option>
                         <option value="1">Blue</option>
                         <option value="2">Green</option>
                         <option value="3">Red</option>
@@ -167,12 +175,11 @@
                       </select>
                     </div>
                   </div>
+                  <div align="center" class="mt-4">
+                    <button type="button" class="btn btn-secondary button2" data-bs-dismiss="modal" style="margin-right: 1rem;">Close</button>
+                    <button [disabled]="deviceForm.invalid" class="btn btn-primary button2">Save changes</button>
+                  </div>
                 </form>
-
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
               </div>
             </div>
           </div>

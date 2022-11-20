@@ -1,3 +1,4 @@
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NotifierService } from 'angular-notifier';
 import { ChartConfiguration, ChartType } from 'chart.js';
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
@@ -25,6 +26,8 @@ export class HomeComponent implements OnInit {
     }
   ];
 
+  deviceForm: FormGroup;
+
   tempMax = 0;
   tempMin = Number.MAX_VALUE;
   tempMiddle = 0;
@@ -47,7 +50,8 @@ export class HomeComponent implements OnInit {
   public chartName09 = 'E';
   public currentTemp: number;
 
-  constructor(private _notifierService: NotifierService) {
+  constructor(private _notifierService: NotifierService,
+              private _fb: FormBuilder) {
     this._notifierService = _notifierService;
     Chart.register(Annotation);
   }
@@ -55,6 +59,47 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     Chart.defaults.scales.linear.min = 0;
     this.getTemp();
+    this.formDevice();
+  }
+
+  onSubmit(): void {
+    console.log('sdafsd')
+    if(this.deviceForm.valid) {
+
+      this._deviceService.save(this.deviceForm.getRawValue()).subscribe({
+        next: resp => {
+          if(!!resp) {
+            if(true) {
+              this.verifyIfUserHasHaveRegistrationToRegistration();
+            }
+            this._router.navigate([``]);
+          }
+        },
+        error: err => {
+          if(!!err?.statusText) {
+            this._notifierService.notify('error', err.statusText);
+          }
+        }
+      });
+    }
+  }
+
+  verificaValidTouched(campo: string) {
+    return !this.deviceForm.get(campo)?.valid
+    && this.deviceForm.get(campo)?.touched;
+  }
+
+  aplicaCssErro(campo: any) {
+    return {
+      'has-error': this.verificaValidTouched(campo),
+      'has-feedback': this.verificaValidTouched(campo)
+    };
+  }
+
+  public formDevice(): void {
+    this.deviceForm = this._fb.group({
+      city: ['',  Validators.required]
+    })
   }
 
   public lineChartData: ChartConfiguration['data'] = {
@@ -70,10 +115,6 @@ export class HomeComponent implements OnInit {
       }
     ],
     labels: [0]
-  }
-
-  public OnAfterClose(args: DropDownButtonComponent): void {
-    console.log(args.content);
   }
 
   public lineChartOptions: ChartConfiguration['options'] = {

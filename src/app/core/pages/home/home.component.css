@@ -38,3 +38,20 @@ span {
     box-shadow: 0 7px 14px rgba(0,0,0,0.15), 0 10px 10px rgba(0,0,0,0.20);
     border-color: black;
 }
+
+.button2 {
+    background-color: #EBEBEB !important;
+    border-color: #EBEBEB !important;
+    color: black !important;
+}
+
+.button2:hover {
+    background-color: black !important;
+    border-color: black !important;
+    color: #EBEBEB !important;
+}
+
+label, button, b, a {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: 400;
+}
