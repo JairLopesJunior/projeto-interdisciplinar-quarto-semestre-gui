@@ -33,9 +33,6 @@ export class LoginComponent implements OnInit {
       this._loginService.save(this.loginForm.getRawValue()).subscribe({
         next: resp => {
           if(!!resp) {
-            if(true) {
-              this.verifyIfUserHasHaveRegistrationToRegistration();
-            }
             this._router.navigate([``]);
           }
         },
@@ -68,13 +65,5 @@ export class LoginComponent implements OnInit {
       ])],
       password: ['',  Validators.required]
     })
-  }
-
-  private verifyIfUserHasHaveRegistrationToRegistration(): void {
-    this._notifierService.show({
-      message: `<a href="http://localhost:4200/login" target="_blank">Clique aqui</a> para terminar o cadastro dos dados complementares.`,
-      type: 'success',
-      template: this.notificationTemplate
-    });
   }
 }

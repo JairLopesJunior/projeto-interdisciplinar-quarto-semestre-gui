@@ -7,7 +7,8 @@ import {default as Annotation} from 'chartjs-plugin-annotation';
 import { BaseChartDirective } from 'ng2-charts';
 import * as moment from 'moment'
 import { interval, map } from 'rxjs';
-import { DropDownButtonComponent, ItemModel } from '@syncfusion/ej2-angular-splitbuttons';
+import { ItemModel } from '@syncfusion/ej2-angular-splitbuttons';
+import { DeviceService } from 'src/app/services/device.service';
 
 @Component({
   selector: 'app-home',
@@ -18,11 +19,14 @@ import { DropDownButtonComponent, ItemModel } from '@syncfusion/ej2-angular-spli
 export class HomeComponent implements OnInit {
 
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
+  @ViewChild('notification') notificationTemplate: any;
 
   public items: ItemModel[] = [
     {
-        text: 'Update device',
-        iconCss: 'sdfs'
+        text: 'Update device'
+    },
+    {
+      text: 'Exit'
     }
   ];
 
@@ -34,9 +38,11 @@ export class HomeComponent implements OnInit {
   lastValue = 0;
   city = 'Araras';
   state = 'BR';
-  dayOfWeek = 'Segunda-feira';
-  mounthOfYear = 'Nov';
-  dayOfMounth = '14';
+  dayOfWeek: string;
+  mounthOfYear: string;
+  dayOfMounth: number;
+  currentTime: string;
+  humidity = 55;
 
   public lineChartType: ChartType = 'line';
   public chartName01 = 'T';
@@ -51,31 +57,31 @@ export class HomeComponent implements OnInit {
   public currentTemp: number;
 
   constructor(private _notifierService: NotifierService,
-              private _fb: FormBuilder) {
+              private _fb: FormBuilder,
+              private _deviceService: DeviceService) {
     this._notifierService = _notifierService;
     Chart.register(Annotation);
   }
 
   ngOnInit(): void {
+    this.dayOfWeek = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"][new Date().getDay()];
+    this.mounthOfYear = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"][new Date().getMonth()].substring(0, 3);
+    this.dayOfMounth = new Date().getDate();
+    this.currentTime = `${new Date().getHours()}h${new Date().getMinutes()}`; 
     Chart.defaults.scales.linear.min = 0;
     this.getTemp();
     this.formDevice();
+    this.aa();
   }
 
   onSubmit(): void {
-    console.log('sdafsd')
     if(this.deviceForm.valid) {
 
-      this._deviceService.save(this.deviceForm.getRawValue()).subscribe({
-        next: resp => {
-          if(!!resp) {
-            if(true) {
-              this.verifyIfUserHasHaveRegistrationToRegistration();
-            }
-            this._router.navigate([``]);
-          }
+      this._deviceService.update(this.deviceForm.getRawValue()).subscribe({
+        next: () => {
+          this._notifierService.notify('success', 'Data changed with success');
         },
-        error: err => {
+        error: (err: any) => {
           if(!!err?.statusText) {
             this._notifierService.notify('error', err.statusText);
           }
@@ -187,5 +193,15 @@ export class HomeComponent implements OnInit {
 
   public alert(i: string | undefined): void {
     console.log(i);
+  }
+
+  public aa(): void {
+    /*interval(6000).pipe(map(a => {
+      this._notifierService.show({
+        message: `<a href="#">Clique aqui</a> para terminar o cadastro dos dados complementares.`,
+        type: 'success',
+        template: this.notificationTemplate
+      });
+    })).subscribe();*/
   }
 }
