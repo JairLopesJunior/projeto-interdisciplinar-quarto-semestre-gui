@@ -16,6 +16,7 @@ export class LoginService {
   save(login: LoginModel): Observable<LoginResponse> {
     let a = new LoginResponse();
     a.user_id = 123;
+    a.user_name = 'a';
     a.token = 'asda';
     return of(a);
     //return this._httpClient.post<LoginResponse>(`${this._loginUrl}`, login);

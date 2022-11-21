@@ -33,6 +33,7 @@ export class LoginComponent implements OnInit {
       this._loginService.save(this.loginForm.getRawValue()).subscribe({
         next: resp => {
           if(!!resp) {
+            this._storage.save(resp);
             this._router.navigate([``]);
           }
         },

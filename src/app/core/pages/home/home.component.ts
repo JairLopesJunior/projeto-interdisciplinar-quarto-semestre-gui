@@ -9,6 +9,7 @@ import * as moment from 'moment'
 import { interval, map } from 'rxjs';
 import { ItemModel } from '@syncfusion/ej2-angular-splitbuttons';
 import { DeviceService } from 'src/app/services/device.service';
+import { OpenWeatherApiService } from 'src/app/services/open-weather-api.service';
 
 @Component({
   selector: 'app-home',
@@ -43,6 +44,7 @@ export class HomeComponent implements OnInit {
   dayOfMounth: number;
   currentTime: string;
   humidity = 55;
+  currentWeatherTemp: number;
 
   public lineChartType: ChartType = 'line';
   public chartName01 = 'T';
@@ -58,7 +60,8 @@ export class HomeComponent implements OnInit {
 
   constructor(private _notifierService: NotifierService,
               private _fb: FormBuilder,
-              private _deviceService: DeviceService) {
+              private _deviceService: DeviceService,
+              private _openWeatherApiService: OpenWeatherApiService) {
     this._notifierService = _notifierService;
     Chart.register(Annotation);
   }
@@ -67,7 +70,22 @@ export class HomeComponent implements OnInit {
     this.dayOfWeek = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"][new Date().getDay()];
     this.mounthOfYear = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"][new Date().getMonth()].substring(0, 3);
     this.dayOfMounth = new Date().getDate();
-    this.currentTime = `${new Date().getHours()}h${new Date().getMinutes()}`; 
+    this.currentTime = `${new Date().getHours()}h${new Date().getMinutes()}`;
+    this._openWeatherApiService.getWeather()
+      .subscribe({
+        next: resp => {
+          if(!!resp) {
+            let main = resp.main;
+            this.currentWeatherTemp = +main.temp.toPrecision(2);
+            this.humidity = +main.humidity.toPrecision(2);
+          }
+        },
+        error: err => {
+          if(!!err?.statusText) {
+            this._notifierService.notify('error', err.statusText);
+          }
+        }
+      });
     Chart.defaults.scales.linear.min = 0;
     this.getTemp();
     this.formDevice();
