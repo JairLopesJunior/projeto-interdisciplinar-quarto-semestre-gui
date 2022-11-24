@@ -9,17 +9,15 @@
     <div align="center" style="display: flex; height: 100vh !important; margin-bottom: 2rem; margin-top: 4rem;" class="row home">
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
 
-        <div class="row" style="height: 50vh !important; align-items: center; align-items: flex-start;">
+        <div class="row" style="height: 47vh !important; align-items: center; align-items: flex-start;">
 
           <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
             <span style="font-size: 1.2vw;">{{ city }}, {{ state }}</span>
           </div>
 
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-            <img src="assets/images/img.png" style="height: 22vh; width: 13vw;">
-          </div>
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-5" style="line-height: 1px;">
+            <img src="{{ icon }}" style="height: 22vh; width: 12vw; margin-bottom: 0px;"><br>
 
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
             <span style="font-size: 5vw;">{{ currentWeatherTemp }}ºC</span>
           </div>
 
@@ -37,17 +35,22 @@
 
         <hr width="60%" style="color: #EBEBEB; opacity: 0.8; border: 1px solid;">
 
-        <div class="row" style="height: 50vh !important;">
+        <div class="row" style="height: 53vh !important;">
 
           <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+
             <span style="letter-spacing: 1px;">
-              <p style="margin: 0px; line-height: 0.9; font-size: 1.8vw;">
+              <p style="margin: 0px; line-height: 0.9; font-size: 1.8vw; margin-bottom: 2vh !important;">
                 Previsão para<br>
                 próximos dias
               </p>
             </span>
-          </div>
 
+            <p *ngFor="let w of weathers" style="font-size: 1.2vw !important; margin-bottom: 0px;"> 
+              {{ w.dt_txt }}&nbsp;&nbsp;&nbsp;<img style="width: 2.5vw;" src="{{ w.weather[0].icon }}">&nbsp;&nbsp;&nbsp;{{ w.main.temp_min }}/{{ w.main.temp_max }}ºC
+            </p>
+          
+          </div>
         </div>
       </div>
     </div>

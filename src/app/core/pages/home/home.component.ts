@@ -6,10 +6,12 @@ import { Chart } from 'chart.js';
 import {default as Annotation} from 'chartjs-plugin-annotation';
 import { BaseChartDirective } from 'ng2-charts';
 import * as moment from 'moment'
-import { interval, map } from 'rxjs';
+import {  interval, map } from 'rxjs';
 import { ItemModel } from '@syncfusion/ej2-angular-splitbuttons';
 import { DeviceService } from 'src/app/services/device.service';
 import { OpenWeatherApiService } from 'src/app/services/open-weather-api.service';
+import { ApiWeatherListResponse } from 'src/app/models/api-weather-list-response';
+import { ApiWeatherResponse } from 'src/app/models/api-weather-response';
 
 @Component({
   selector: 'app-home',
@@ -45,6 +47,8 @@ export class HomeComponent implements OnInit {
   currentTime: string;
   humidity = 55;
   currentWeatherTemp: number;
+  weathers: ApiWeatherResponse[];
+  icon: string;
 
   public lineChartType: ChartType = 'line';
   public chartName01 = 'T';
@@ -78,6 +82,7 @@ export class HomeComponent implements OnInit {
             let main = resp.main;
             this.currentWeatherTemp = +main.temp.toPrecision(2);
             this.humidity = +main.humidity.toPrecision(2);
+            this.icon = `http://openweathermap.org/img/w/${resp.weather[0].icon}.png`;
           }
         },
         error: err => {
@@ -90,6 +95,31 @@ export class HomeComponent implements OnInit {
     this.getTemp();
     this.formDevice();
     this.aa();
+    this._openWeatherApiService.getWeatherWithMoreDays()
+    .subscribe({
+      next: (weather: ApiWeatherListResponse) => {
+        if(!!weather) {
+          let day = -1;
+          this.weathers = weather.list.filter(w => {
+
+            if(new Date(w.dt_txt).getDate() !== day) {
+              day = new Date(w.dt_txt).getDate();
+              w.dt_txt = `${["Dom", "Seg", "Ter", "Quar", "Quin", "Sex", "Sáb"][new Date(w.dt_txt).getDay()]}, ${day} ${["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"][new Date(w.dt_txt).getMonth()]}`;
+              w.main.temp_min = +w.main.temp_min.toPrecision(2);
+              w.main.temp_max = +w.main.temp_max.toPrecision(2);
+              w.weather[0].icon = `http://openweathermap.org/img/w/${w.weather[0].icon}.png`;
+              return w;
+            }
+            return;
+          });
+        }
+      },
+      error: (err: any) => {
+        if(!!err?.statusText) {
+          this._notifierService.notify('error', err.statusText);
+        }
+      }
+    })
   }
 
   onSubmit(): void {
@@ -210,7 +240,6 @@ export class HomeComponent implements OnInit {
   }
 
   public alert(i: string | undefined): void {
-    console.log(i);
   }
 
   public aa(): void {
