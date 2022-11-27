@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit {
 
   public items: ItemModel[] = [
     {
-        text: 'Update device'
+      text: 'Update device'
     },
     {
       text: 'Exit'
@@ -71,8 +71,8 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.dayOfWeek = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"][new Date().getDay()];
-    this.mounthOfYear = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"][new Date().getMonth()].substring(0, 3);
+    this.dayOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][new Date().getDay()];
+    this.mounthOfYear = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"][new Date().getMonth()].substring(0, 3);
     this.dayOfMounth = new Date().getDate();
     this.currentTime = `${new Date().getHours()}h${new Date().getMinutes()}`;
     this._openWeatherApiService.getWeather()
@@ -104,7 +104,7 @@ export class HomeComponent implements OnInit {
 
             if(new Date(w.dt_txt).getDate() !== day) {
               day = new Date(w.dt_txt).getDate();
-              w.dt_txt = `${["Dom", "Seg", "Ter", "Quar", "Quin", "Sex", "Sáb"][new Date(w.dt_txt).getDay()]}, ${day} ${["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"][new Date(w.dt_txt).getMonth()]}`;
+              w.dt_txt = `${["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"][new Date(w.dt_txt).getDay()]}, ${day} ${["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][new Date(w.dt_txt).getMonth()]}`;
               w.main.temp_min = +w.main.temp_min.toPrecision(2);
               w.main.temp_max = +w.main.temp_max.toPrecision(2);
               w.weather[0].icon = `http://openweathermap.org/img/w/${w.weather[0].icon}.png`;
@@ -198,45 +198,56 @@ export class HomeComponent implements OnInit {
   } as any;
 
   public getTemp(): void {
-    interval(1000).pipe(map(a => {
-      let lengthChart = this.lineChartData.labels?.length as number;
-      if(lengthChart >= 10) {
-        this.lineChartData.datasets[0].data.shift();
-        this.lineChartData.labels?.shift();
-      }
-
-      let currentTemp = Math.floor(35 * Math.random() + 20);
-      this.currentTemp = currentTemp;
-      (this.lineChartData.datasets[0].data as number[]).push(currentTemp);
-
-      this.lineChartData.labels?.push(moment().format('HH:mm:ss'));
-      if(currentTemp > this.tempMax) {
-        this.tempMax = currentTemp;
-      }
-      if(currentTemp < this.tempMin) {
-        this.tempMin = currentTemp;
-      }
-
-      if(currentTemp !== this.lastValue) {
-        this.tempMiddle = Math.trunc(((currentTemp + this.tempMiddle) / 2));
-      }
-
-      /*if(currentTemp <= 15) {
-        this._notifierService.notify('error', `Alert: The chart is temperature ${currentTemp}`);
-        this.lineChartData.datasets[0].backgroundColor = 'rgba(0, 0, 239, 0.7)'; // Azul
-      } else if(currentTemp < 21) {
-        this._notifierService.notify('error', `Alert: The chart is temperature ${currentTemp}`);
-        this.lineChartData.datasets[0].backgroundColor = 'rgba(0, 255, 0, 0.65)'; // Verde
-      } else if(currentTemp <= 28) {
-        this.lineChartData.datasets[0].backgroundColor = 'rgba(247, 255, 0, 0.65)'; // Amarelo
-      } else if(currentTemp > 28) {
-        this._notifierService.notify('error', `Alert: The chart is temperature ${currentTemp}`);
-        this.lineChartData.datasets[0].backgroundColor = 'rgba(255, 0, 0, 0.72)'; // Vermelho
-      }
-*/
-      this.chart?.update();
-    }))
-    .subscribe();
+    interval(1000).pipe(map( () => {
+      this._arduinoService.getTemperature().subscribe({
+        next: temp => {
+          console.log('Temp: ', temp);
+          if(!!temp) {
+            let lengthChart = this.lineChartData.labels?.length as number;
+            if(lengthChart >= 10) {
+              this.lineChartData.datasets[0].data.shift();
+              this.lineChartData.labels?.shift();
+            }
+  
+            let currentTemp = temp;
+            this.currentTemp = currentTemp; //Math.floor(35 * Math.random() + 20)
+            (this.lineChartData.datasets[0].data as number[]).push(currentTemp);
+  
+            this.lineChartData.labels?.push(moment().format('HH:mm:ss'));
+            if(currentTemp > this.tempMax) {
+              this.tempMax = currentTemp;
+            }
+            if(currentTemp < this.tempMin) {
+              this.tempMin = currentTemp;
+            }
+  
+            if(currentTemp !== this.lastValue) {
+              this.tempMiddle = Math.trunc(((currentTemp + this.tempMiddle) / 2));
+            }
+  
+            /*if(currentTemp <= 15) {
+              this._notifierService.notify('error', `Alert: The chart is temperature ${currentTemp}`);
+              this.lineChartData.datasets[0].backgroundColor = 'rgba(0, 0, 239, 0.7)'; // Azul
+            } else if(currentTemp < 21) {
+              this._notifierService.notify('error', `Alert: The chart is temperature ${currentTemp}`);
+              this.lineChartData.datasets[0].backgroundColor = 'rgba(0, 255, 0, 0.65)'; // Verde
+            } else if(currentTemp <= 28) {
+              this.lineChartData.datasets[0].backgroundColor = 'rgba(247, 255, 0, 0.65)'; // Amarelo
+            } else if(currentTemp > 28) {
+              this._notifierService.notify('error', `Alert: The chart is temperature ${currentTemp}`);
+              this.lineChartData.datasets[0].backgroundColor = 'rgba(255, 0, 0, 0.72)'; // Vermelho
+            }*/
+  
+            this.chart?.update();
+          }
+        },
+        error: (err: any) => {
+          if(!!err?.statusText) {
+            this._notifierService.notify('error', err.statusText);
+          }
+        }
+      })
+    })).subscribe();
   }
 
   public alert(i: string | undefined): void {
