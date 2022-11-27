@@ -12,6 +12,7 @@ import { DeviceService } from 'src/app/services/device.service';
 import { OpenWeatherApiService } from 'src/app/services/open-weather-api.service';
 import { ApiWeatherListResponse } from 'src/app/models/api-weather-list-response';
 import { ApiWeatherResponse } from 'src/app/models/api-weather-response';
+import { ArduinoService } from 'src/app/services/arduino.service';
 
 @Component({
   selector: 'app-home',
@@ -34,7 +35,6 @@ export class HomeComponent implements OnInit {
   ];
 
   deviceForm: FormGroup;
-
   tempMax = 0;
   tempMin = Number.MAX_VALUE;
   tempMiddle = 0;
@@ -65,67 +65,25 @@ export class HomeComponent implements OnInit {
   constructor(private _notifierService: NotifierService,
               private _fb: FormBuilder,
               private _deviceService: DeviceService,
-              private _openWeatherApiService: OpenWeatherApiService) {
+              private _openWeatherApiService: OpenWeatherApiService,
+              private _arduinoService: ArduinoService) {
     this._notifierService = _notifierService;
     Chart.register(Annotation);
   }
 
   ngOnInit(): void {
-    this.dayOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][new Date().getDay()];
-    this.mounthOfYear = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"][new Date().getMonth()].substring(0, 3);
-    this.dayOfMounth = new Date().getDate();
-    this.currentTime = `${new Date().getHours()}h${new Date().getMinutes()}`;
-    this._openWeatherApiService.getWeather()
-      .subscribe({
-        next: resp => {
-          if(!!resp) {
-            let main = resp.main;
-            this.currentWeatherTemp = +main.temp.toPrecision(2);
-            this.humidity = +main.humidity.toPrecision(2);
-            this.icon = `http://openweathermap.org/img/w/${resp.weather[0].icon}.png`;
-          }
-        },
-        error: err => {
-          if(!!err?.statusText) {
-            this._notifierService.notify('error', err.statusText);
-          }
-        }
-      });
+    this.getWeather();
     Chart.defaults.scales.linear.min = 0;
     this.getTemp();
     this.formDevice();
-    this.aa();
-    this._openWeatherApiService.getWeatherWithMoreDays()
-    .subscribe({
-      next: (weather: ApiWeatherListResponse) => {
-        if(!!weather) {
-          let day = -1;
-          this.weathers = weather.list.filter(w => {
-
-            if(new Date(w.dt_txt).getDate() !== day) {
-              day = new Date(w.dt_txt).getDate();
-              w.dt_txt = `${["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"][new Date(w.dt_txt).getDay()]}, ${day} ${["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][new Date(w.dt_txt).getMonth()]}`;
-              w.main.temp_min = +w.main.temp_min.toPrecision(2);
-              w.main.temp_max = +w.main.temp_max.toPrecision(2);
-              w.weather[0].icon = `http://openweathermap.org/img/w/${w.weather[0].icon}.png`;
-              return w;
-            }
-            return;
-          });
-        }
-      },
-      error: (err: any) => {
-        if(!!err?.statusText) {
-          this._notifierService.notify('error', err.statusText);
-        }
-      }
-    })
+    this.isCityRegistered();
+    this.getWeatherWithMoreDays();
   }
 
   onSubmit(): void {
     if(this.deviceForm.valid) {
 
-      this._deviceService.update(this.deviceForm.getRawValue()).subscribe({
+      this._deviceService.save(this.deviceForm.getRawValue()).subscribe({
         next: () => {
           this._notifierService.notify('success', 'Data changed with success');
         },
@@ -240,11 +198,6 @@ export class HomeComponent implements OnInit {
   
             this.chart?.update();
           }
-        },
-        error: (err: any) => {
-          if(!!err?.statusText) {
-            this._notifierService.notify('error', err.statusText);
-          }
         }
       })
     })).subscribe();
@@ -253,13 +206,58 @@ export class HomeComponent implements OnInit {
   public alert(i: string | undefined): void {
   }
 
-  public aa(): void {
-    /*interval(6000).pipe(map(a => {
-      this._notifierService.show({
-        message: `<a href="#">Clique aqui</a> para terminar o cadastro dos dados complementares.`,
-        type: 'success',
-        template: this.notificationTemplate
+  public isCityRegistered(): void {
+    this._deviceService.getCityRegistered().subscribe({
+      next: device => {
+        if(!!device && !device.city) {
+          this._notifierService.show({
+            message: `<a href="#">Clique aqui</a> para terminar o cadastro dos dados complementares.`,
+            type: 'success',
+            template: this.notificationTemplate
+          });
+        }
+      }
+    });
+  }
+
+  public getWeather(): void {
+    this.dayOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][new Date().getDay()];
+    this.mounthOfYear = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"][new Date().getMonth()].substring(0, 3);
+    this.dayOfMounth = new Date().getDate();
+    this.currentTime = `${new Date().getHours()}h${new Date().getMinutes()}`;
+    this._openWeatherApiService.getWeather()
+      .subscribe({
+        next: resp => {
+          if(!!resp) {
+            let main = resp.main;
+            this.currentWeatherTemp = +main.temp.toPrecision(2);
+            this.humidity = +main.humidity.toPrecision(2);
+            this.icon = `http://openweathermap.org/img/w/${resp.weather[0].icon}.png`;
+          }
+        }
       });
-    })).subscribe();*/
+  }
+
+  public getWeatherWithMoreDays(): void {
+    this._openWeatherApiService.getWeatherWithMoreDays()
+    .subscribe({
+      next: (weather: ApiWeatherListResponse) => {
+        if(!!weather) {
+          let day = -1;
+          this.weathers = weather.list.filter(w => {
+
+            if(new Date(w.dt_txt).getDate() !== day) {
+              day = new Date(w.dt_txt).getDate();
+              w.dt_txt = `${["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"][new Date(w.dt_txt).getDay()]}, ${day} ${["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][new Date(w.dt_txt).getMonth()]}`;
+              w.main.temp_min = +w.main.temp_min.toPrecision(2);
+              w.main.temp_max = +w.main.temp_max.toPrecision(2);
+              w.weather[0].icon = `http://openweathermap.org/img/w/${w.weather[0].icon}.png`;
+              return w;
+            }
+            return;
+          });
+        }
+      }
+    })
   }
 }
