@@ -7,7 +7,7 @@ import {default as Annotation} from 'chartjs-plugin-annotation';
 import { BaseChartDirective } from 'ng2-charts';
 import * as moment from 'moment'
 import {  interval, map } from 'rxjs';
-import { ItemModel } from '@syncfusion/ej2-angular-splitbuttons';
+//import { ItemModel } from '@syncfusion/ej2-angular-splitbuttons';
 import { DeviceService } from 'src/app/services/device.service';
 import { OpenWeatherApiService } from 'src/app/services/open-weather-api.service';
 import { ApiWeatherListResponse } from 'src/app/models/api-weather-list-response';
@@ -25,7 +25,8 @@ export class HomeComponent implements OnInit {
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
   @ViewChild('notification') notificationTemplate: any;
 
-  public items: ItemModel[] = [
+  //public items: ItemModel[] = [
+    public items: any[] = [
     {
       text: 'Update device'
     },
