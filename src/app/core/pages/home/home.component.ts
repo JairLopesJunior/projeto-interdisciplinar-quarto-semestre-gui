@@ -160,16 +160,17 @@ export class HomeComponent implements OnInit {
     interval(1000).pipe(map( () => {
       this._arduinoService.getTemperature().subscribe({
         next: temp => {
-          let isDifferent = !!temp;
-          if(!!isDifferent) {
+          //let isDifferent = !!temp;
+          //if(!!isDifferent) {
             let lengthChart = this.lineChartData.labels?.length as number;
             if(lengthChart >= 10) {
               this.lineChartData.datasets[0].data.shift();
               this.lineChartData.labels?.shift();
             }
   
-            let currentTemp = isDifferent ? temp : this.lastTemp;
+            let currentTemp =  Math.floor(35 * Math.random() + 20);
             this.currentTemp = currentTemp; //Math.floor(35 * Math.random() + 20)
+            
             (this.lineChartData.datasets[0].data as number[]).push(currentTemp);
   
             this.lineChartData.labels?.push(moment().format('HH:mm:ss'));
@@ -199,7 +200,7 @@ export class HomeComponent implements OnInit {
   
             this.chart?.update();
             this.lastTemp = temp;
-          }
+          //}
         }
       })
     })).subscribe();

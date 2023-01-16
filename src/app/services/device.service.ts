@@ -15,13 +15,16 @@ export class DeviceService {
               private _localStorageService: LocalStorageService) { }
 
   save(city: string): Observable<DeviceResponse> {
-    let token = this._localStorageService.getToken();
+    /*let token = this._localStorageService.getToken();
     let userId = this._localStorageService.getUserId();
     const headers = new HttpHeaders()
           .set('content-type', 'application/json')
           .set('Access-Control-Allow-Origin', '*')
           .set('Authorization', `Bearer ${token}`);
-    return this._httpClient.post<DeviceResponse>(`${this._loginUrl}`, { 'user_id': userId, city }, { 'headers': headers });
+    return this._httpClient.post<DeviceResponse>(`${this._loginUrl}`, { 'user_id': userId, city }, { 'headers': headers });*/
+    let device = new DeviceResponse();
+    device.user_id = 'userId';
+    return of(device);
   }
 
   getCityRegistered(): Observable<DeviceResponse> {
